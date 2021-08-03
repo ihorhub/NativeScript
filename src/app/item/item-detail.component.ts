@@ -1,20 +1,22 @@
-import { Component, OnInit } from '@angular/core'
-import { ActivatedRoute } from '@angular/router'
-
-import { Item } from './item'
-import { ItemService } from './item.service'
+import { Component, OnInit, Input, Output } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { NewsList } from "../models/newsList";
+import { EventEmitter } from "@angular/core";
 
 @Component({
-  selector: 'ns-details',
-  templateUrl: './item-detail.component.html',
+  selector: "ns-details",
+  templateUrl: "./item-detail.component.html"
 })
 export class ItemDetailComponent implements OnInit {
-  item: Item
+  @Input()
+  item: any;
+  @Output()
+  getInfo = new EventEmitter<any>();
 
-  constructor(private itemService: ItemService, private route: ActivatedRoute) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    const id = +this.route.snapshot.params.id
-    this.item = this.itemService.getItem(id)
+  ngOnInit(): void {}
+  getDetailInfo(item: any): void {
+    this.getInfo.emit(item);
   }
 }
